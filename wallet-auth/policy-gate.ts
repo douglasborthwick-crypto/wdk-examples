@@ -1,8 +1,8 @@
 /**
  * Wallet Auth Example: Policy Gate
  *
- * Demonstrates: Using a wallet auth check as a condition in the WDK
- * transaction policy engine. A project-scope policy denies an ERC-20
+ * Demonstrates: Using a wallet auth check as a condition in WDK
+ * transaction policies (@tetherto/wdk-policies). A project-scope policy denies an ERC-20
  * transfer unless the recipient wallet meets an on-chain condition, which
  * InsumerAPI evaluates and signs before anything is signed locally.
  *
@@ -14,8 +14,9 @@
  * Run: npx tsx wallet-auth/policy-gate.ts
  */
 
-import WDK, { PolicyViolationError } from '@tetherto/wdk'
-import type { SimulationResult } from '@tetherto/wdk'
+import WDK from '@tetherto/wdk'
+import WdkPolicies, { PolicyViolationError } from '@tetherto/wdk-policies'
+import type { SimulationResult } from '@tetherto/wdk-policies'
 import WalletManagerEvm from '@tetherto/wdk-wallet-evm'
 import WalletAuth from '@insumermodel/wdk-protocol-wallet-auth'
 import { loadWalletAuthConfig, optionalEnv } from '../shared/config.js'
@@ -45,7 +46,11 @@ async function main() {
       provider: config.rpcUrl,
       transferMaxFee: 100000000000000,
     })
-    .registerPolicy({
+
+  // Policies are opt-in: attach the plugin to the wallet, then register.
+  const policies = new WdkPolicies()
+    .attach(wdk, 'ethereum')
+    .register({
       id: 'recipient-wallet-auth',
       name: 'Recipients must pass wallet auth',
       scope: 'project',
@@ -136,6 +141,7 @@ async function main() {
     console.log('\nSkipping actual transfer (set ACTUALLY_SEND=true to send)')
   }
 
+  policies.dispose()
   wdk.dispose()
   console.log('\nDone.')
 }

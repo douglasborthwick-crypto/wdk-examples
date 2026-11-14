@@ -10,7 +10,6 @@ export const RECIPIENT_CONDITION = {
   contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC on Ethereum
   chainId: 1,
   threshold: '1000',
-  decimals: 6,
   label: 'Holds at least 1,000 USDC on Ethereum',
 }
 

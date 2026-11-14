@@ -1,6 +1,6 @@
 # Wallet Auth Examples
 
-Examples that use [`@insumermodel/wdk-protocol-wallet-auth`](https://github.com/douglasborthwick-crypto/wdk-protocol-wallet-auth) as a condition in the [`@tetherto/wdk`](https://github.com/tetherto/wdk) transaction policy engine.
+Examples that use [`@insumermodel/wdk-protocol-wallet-auth`](https://github.com/insumerapi/wdk-protocol-wallet-auth) as a condition in WDK transaction policies ([`@tetherto/wdk-policies`](https://github.com/tetherto/wdk-policies)).
 
 A wallet auth check evaluates a wallet against on-chain conditions (token balances, NFT ownership, attestations) and returns a signed pass/fail result from InsumerAPI. As a policy condition it runs before anything is signed locally, and the signed result can be re-verified later against a public key set.
 
@@ -29,5 +29,5 @@ Each wallet auth check uses one verification credit: `policy-gate` uses two per 
 
 ## API Reference
 
-- [WDK transaction policies](https://github.com/tetherto/wdk#transaction-policies)
+- [WDK transaction policies](https://github.com/tetherto/wdk-policies)
 - [InsumerAPI reference](https://insumermodel.com/developers/api-reference/)
